@@ -22,15 +22,12 @@ import android.util.Log;
 public final class DiracUtils {
 
     protected static DiracSound mDiracSound;
-    private static boolean mInitialized;
     private static final String TAG = "DiracUtils";
     private static final boolean DEBUG = true;
 
     public static void initialize() {
-        if (!mInitialized) {
+        if (mDiracSound == null)
             mDiracSound = new DiracSound(0, 0);
-            mInitialized = true;
-        }
     }
 
     protected static void setMusic(boolean enable) {
@@ -49,17 +46,6 @@ public final class DiracUtils {
         for (int band = 0; band <= level.length - 1; band++) {
             mDiracSound.setLevel(band, Float.valueOf(level[band]));
         }
-    }
-
-    protected static String getLevel() {
-        String selected = "";
-        for (int band = 0; band <= 6; band++) {
-            int temp = (int) mDiracSound.getLevel(band);
-            selected += String.valueOf(temp);
-            if (band != 6) selected += ",";
-        }
-        if (DEBUG) Log.d(TAG, "getLevel() -> " + selected);
-        return selected;
     }
 
     protected static void setHeadsetType(int paramInt) {
